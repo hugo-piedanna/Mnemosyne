@@ -1,6 +1,6 @@
 # Mnémosyne
 
-An application for manager your passwords. 
+An application for manage your passwords. 
 
 ## Resources
 
