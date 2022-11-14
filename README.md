@@ -1,16 +1,7 @@
-# mnemosyne
+# Mnémosyne
 
-A new Flutter project.
+An application for manager your passwords. 
 
-## Getting Started
+## Resources
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+For splahscreen animation I use rive splash screen [librairies](https://pub.dev/packages/rive_splash_screen) and [this](https://rive.app/community/1631-3207-simetrik-security/) animations make by antonio.e
