@@ -19,9 +19,9 @@ class MyApp extends StatelessWidget {
       ),
       home: SplashScreen.navigate(
         backgroundColor: Colors.white,
-        name: 'splash-screen.riv',
+        name: 'animations/splash-screen.riv',
         next: (context) => const index(),
-        until: () => Future.delayed(const Duration(seconds: 6)),
+        until: () => Future.delayed(const Duration(seconds: 3)),
         loopAnimation: 'Animation 1',
       ),
     );
