@@ -1,6 +1,8 @@
 // ignore_for_file: camel_case_types, no_logic_in_create_state, use_build_context_synchronously
 
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mnemosyne/addPassword.dart';
 import 'package:mnemosyne/models/password.dart';
 import 'package:mnemosyne/services/databaseServices.dart';
@@ -125,7 +127,13 @@ class _index extends State<index> {
                                     );
                                   });
                             }),
-                            onTap: (() => {}),
+                            onTap: (() => {
+                                  FlutterClipboard.copy(snapshot.data![i].pass)
+                                      .then((value) => print('copied')),
+                                  Fluttertoast.showToast(
+                                      msg: "Copied !",
+                                      toastLength: Toast.LENGTH_LONG)
+                                }),
                             child: Container(
                               height: 70,
                               decoration: BoxDecoration(
