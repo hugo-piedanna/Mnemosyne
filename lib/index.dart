@@ -5,13 +5,20 @@ import 'package:mnemosyne/services/databaseServices.dart';
 import 'package:transition/transition.dart';
 
 class index extends StatefulWidget {
-  const index({Key? key}) : super(key: key);
+  const index({super.key, required this.list});
+
+  final Future<List<password>?> list;
 
   @override
-  State<index> createState() => _index();
+  State<index> createState() => _index(list);
 }
 
 class _index extends State<index> {
+  Future<List<password>?>? _future;
+
+  _index(Future<List<password>?> list) {
+    _future = list;
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -46,11 +53,14 @@ class _index extends State<index> {
               ),
               Expanded(
                 child: FutureBuilder(
-                    future: DatabaseHelper.allPassword(),
+                    future: _future,
                     builder:
                         (context, AsyncSnapshot<List<password>?> snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const CircularProgressIndicator();
+                        return const Center(
+                            child: CircularProgressIndicator(
+                          color: Color(0xff83c5be),
+                        ));
                       } else if (snapshot.hasError) {
                         return Center(
                           child: Text(snapshot.error.toString()),
@@ -83,11 +93,20 @@ class _index extends State<index> {
                                               backgroundColor:
                                                   MaterialStateProperty.all(
                                                       const Color(0xff83c5be))),
-                                          onPressed: () async {
-                                            await DatabaseHelper.deletePass(
-                                                snapshot.data![i]);
-                                            Navigator.pop(context);
-                                            setState(() {});
+                                          onPressed: () {
+                                            setState(() async {
+                                              await DatabaseHelper.deletePass(
+                                                  snapshot.data![i]);
+                                              Navigator.push(
+                                                context,
+                                                Transition(
+                                                    child: index(
+                                                        list: DatabaseHelper
+                                                            .allPassword()),
+                                                    transitionEffect:
+                                                        TransitionEffect.FADE),
+                                              );
+                                            });
                                           },
                                           child: const Text('Yes'),
                                         ),

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mnemosyne/index.dart';
+import 'package:mnemosyne/services/databaseServices.dart';
 import 'package:rive_splash_screen/rive_splash_screen.dart';
+
+import 'models/password.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,6 +14,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future<List<password>?> list = DatabaseHelper.allPassword();
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData().copyWith(
@@ -21,8 +26,8 @@ class MyApp extends StatelessWidget {
       home: SplashScreen.navigate(
         backgroundColor: Colors.white,
         name: 'animations/splash-screen.riv',
-        next: (context) => const index(),
-        until: () => Future.delayed(const Duration(seconds: 3)),
+        next: (context) => index(list: list),
+        until: () => list = DatabaseHelper.allPassword(),
         loopAnimation: 'Animation 1',
       ),
     );

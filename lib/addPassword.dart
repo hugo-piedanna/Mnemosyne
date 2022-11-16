@@ -67,7 +67,7 @@ class _addpass extends State<addpass> {
                     onPressed: (() => Navigator.push(
                           context,
                           Transition(
-                              child: const index(),
+                              child: index(list: DatabaseHelper.allPassword()),
                               transitionEffect: TransitionEffect.FADE),
                         )),
                     child: const Padding(
@@ -99,7 +99,7 @@ class _addpass extends State<addpass> {
                         Navigator.push(
                           context,
                           Transition(
-                              child: const index(),
+                              child: index(list: DatabaseHelper.allPassword()),
                               transitionEffect: TransitionEffect.FADE),
                         );
                       }
