@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mnemosyne/main.dart';
-import 'package:rive/rive.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:mnemosyne/models/password.dart';
+import 'package:mnemosyne/services/databaseServices.dart';
 import 'package:transition/transition.dart';
 
 import 'index.dart';
@@ -23,6 +24,7 @@ class _addpass extends State<addpass> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Center(
           child: Column(
@@ -56,10 +58,9 @@ class _addpass extends State<addpass> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  RaisedButton(
-                    color: Colors.red,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
+                  ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.red)),
                     onPressed: (() => Navigator.push(
                           context,
                           Transition(
@@ -74,16 +75,31 @@ class _addpass extends State<addpass> {
                       ),
                     ),
                   ),
-                  RaisedButton(
-                    color: Colors.blueAccent,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    onPressed: (() => {
-                          if (_formKey.currentState!.validate())
-                            {print("It's match")}
-                          else
-                            {print("Not match")}
-                        }),
+                  ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.blue)),
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        final password model = password(
+                            name: nameController.text,
+                            pass: passwordController.text);
+
+                        await DatabaseHelper.addPass(model);
+
+                        Fluttertoast.showToast(
+                            msg: "Password saved",
+                            toastLength: Toast.LENGTH_LONG);
+
+                        // ignore: use_build_context_synchronously
+                        Navigator.push(
+                          context,
+                          Transition(
+                              child: const index(),
+                              transitionEffect: TransitionEffect.FADE),
+                        );
+                      }
+                    },
                     child: const Padding(
                       padding: EdgeInsets.all(20.0),
                       child: Text(
@@ -117,7 +133,7 @@ class _addpass extends State<addpass> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        prefixIcon: const Icon(Icons.person),
+        prefixIcon: const Icon(Icons.shield),
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: "Name",
         border: OutlineInputBorder(
@@ -134,7 +150,7 @@ class _addpass extends State<addpass> {
       controller: passwordController,
       obscureText: true,
       validator: (value) {
-        if (val != value) {
+        if (this.passwordController.text != passwordRepeatController.text) {
           return ("Passwords don't match");
         }
         if (value!.isEmpty) {
