@@ -67,6 +67,43 @@ class _index extends State<index> {
                           shrinkWrap: true,
                           itemCount: snapshot.data!.length,
                           itemBuilder: (context, i) => GestureDetector(
+                            onLongPress: (() async {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: const Text(
+                                        'Are you sure you want to delete this password?',
+                                        style:
+                                            TextStyle(color: Color(0xff006d77)),
+                                      ),
+                                      actions: [
+                                        ElevatedButton(
+                                          style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty.all(
+                                                      const Color(0xff83c5be))),
+                                          onPressed: () async {
+                                            await DatabaseHelper.deletePass(
+                                                snapshot.data![i]);
+                                            Navigator.pop(context);
+                                            setState(() {});
+                                          },
+                                          child: const Text('Yes'),
+                                        ),
+                                        ElevatedButton(
+                                          style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty.all(
+                                                      Colors.red)),
+                                          onPressed: () =>
+                                              Navigator.pop(context),
+                                          child: const Text('No'),
+                                        ),
+                                      ],
+                                    );
+                                  });
+                            }),
                             onTap: (() => {}),
                             child: Container(
                               height: 70,
