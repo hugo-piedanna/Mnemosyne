@@ -12,10 +12,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Mnémosyne',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      theme: ThemeData().copyWith(
+        // change the focus border color of the TextField
+        colorScheme:
+            ThemeData().colorScheme.copyWith(primary: const Color(0xff006d77)),
       ),
       home: SplashScreen.navigate(
         backgroundColor: Colors.white,

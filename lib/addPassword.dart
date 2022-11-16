@@ -32,7 +32,10 @@ class _addpass extends State<addpass> {
               const Text(
                 "New password",
                 style: TextStyle(
-                    fontSize: 30, height: 3, fontWeight: FontWeight.bold),
+                    fontSize: 30,
+                    height: 3,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xff006d77)),
               ),
               Form(
                 key: _formKey,
@@ -71,14 +74,15 @@ class _addpass extends State<addpass> {
                       padding: EdgeInsets.all(20.0),
                       child: Text(
                         'Cancel',
-                        style: TextStyle(fontSize: 23, color: Colors.white),
+                        style:
+                            TextStyle(fontSize: 23, color: Color(0xffedf6f9)),
                       ),
                     ),
                   ),
                   ElevatedButton(
                     style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all(Colors.blue)),
+                            MaterialStateProperty.all(const Color(0xff83c5be))),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         final password model = password(
@@ -104,7 +108,8 @@ class _addpass extends State<addpass> {
                       padding: EdgeInsets.all(20.0),
                       child: Text(
                         'Add password',
-                        style: TextStyle(fontSize: 23, color: Colors.white),
+                        style:
+                            TextStyle(fontSize: 23, color: Color(0xffedf6f9)),
                       ),
                     ),
                   ),
