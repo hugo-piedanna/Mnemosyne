@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:mnemosyne/models/password.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';

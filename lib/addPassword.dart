@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mnemosyne/models/password.dart';
@@ -16,10 +18,10 @@ class addpass extends StatefulWidget {
 class _addpass extends State<addpass> {
   final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController passwordController = new TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   final TextEditingController passwordRepeatController =
-      new TextEditingController();
-  final TextEditingController nameController = new TextEditingController();
+      TextEditingController();
+  final TextEditingController nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -161,6 +163,7 @@ class _addpass extends State<addpass> {
         if (value!.isEmpty) {
           return ("You should to enter a password");
         }
+        return null;
       },
       onSaved: (value) {
         passwordController.text = value!;
